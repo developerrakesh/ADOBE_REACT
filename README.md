@@ -248,5 +248,93 @@ phoneapp> npm i bootstrap react-router-dom styled-components
 ==============================
 
 
+	Day 1 Recap:
+
+	Webpack; React ==> props and state [ immutable ]
+
+	Parent passes data to children in the form of props;
+	state and behaviour in component
+
+Virtual DOM
+React.createElement
+Functional Component and JSX
+Class Component ==> render() returns JSX
+	==> state and behaviour
+
+	HOF ==> map to transform ==> we used it for converting data ==> Component
+
+	CustomerApp: ==> CustomerList includes "Filter" and n no of "CustomerRow" components
+	special props "key" should be used whenever a list is rendered
+
+	Binding events:
+	
+	filterEvent={this.filterCustomers.bind(this)}
+	
+	OR
+	
+	delEvent={(id) => this.deleteCustomer(id)}
 
 
+Day 2:
+=====
+
+Testing React application:
+
+Unit Testing Frameworks:
+1) Mocha
+2) Jasmine
+3) Jest
+
+Assertion Librarires: Chai
+
+Testing React Components:
+DOM testing library
+jest-dom: Jest provides a wrapper on DOM testing library
+
+Enzyme for Testing React Components:
+methods like mount(); shallow() ; render() 
+
+const wrapper = mount(<Foo id="foo" />); // get the component and its children
+const wrapper = shallow(<Foo id="foo" />); // get the component but not its children
+
+Enzyme was more of testing state and props 
+
+RTL ==> React Testing Library for Unit Testing
+
+ "@testing-library/jest-dom": "^5.11.4",
+ "@testing-library/react": "^11.1.0",
+ "@testing-library/user-event": "^12.1.10",
+
+
+RTL is a wrapper on jest-dom; gives additional apis to access React Components [ DOM ]; BDD
+
+similar to RTL ==> Angular Test Bed built on Jasmine
+
+RTL methods to access the component/elements
+
+getByXXX()  ==> throws exception if not found
+	getByRole("button") getByRole("input")
+	getByText(/Customer Application/i)  
+	getByPlaceHolderText("search by name")
+	getByTestId("someid"); <div data-testid="someid"></div>
+
+
+queryByXXX() ==> returns null if not found
+
+findByXXX() ==> for Promise based component creation [ API call]
+
+
+XXXX.test.js
+
+
+==========
+
+Unit testing using RTL
+// Mock or sample data for "customer" props
+// mock deleteCustomer
+// render(<CustomerRow delEvent={(id) => this.deleteCustomer(id)}  customer={c} key={c.id} />);
+
+	===
+
+	Cypress ==> E2E testing
+	
