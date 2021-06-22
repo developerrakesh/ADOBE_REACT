@@ -337,4 +337,176 @@ Unit testing using RTL
 	===
 
 	Cypress ==> E2E testing
-	
+
+ =========================
+ Code Coverage:
+ npm test -- --coverage
+
+ ===========================================
+
+ PhoneApp
+
+ React Context ==> React version 16.7
+
+ 
+ let PersonContext = React.createContext();
+
+class PersonProvider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      "name" : "Banu",
+      "email" : "someemail",
+      "updateEmail" : this.updateEmail.bind(this)
+    }
+  }
+  updateEmail(em) {
+    this.setState( {
+      "email" : em
+    });
+  }
+
+  render() {
+    return <PersonContext.Provider value = {{...this.state}}>
+            {this.props.children}
+      </PersonContext.Provider>
+  }
+}
+
+class App extends React.Component {
+  render() {
+     return <PersonProvider>
+          <First/>
+      </PersonProvider>
+  }
+}
+
+function First() {
+  return <div> <h1> First Component !!! </h1> <Second /> </div>
+}
+    
+class Second extends React.Component {
+  render() {
+    return <PersonContext.Consumer>
+        {
+          value =>  {
+            return <div>
+                      Name : {value.name} <br /> Email: {value.email} <br />
+                    <button onClick={() => value.updateEmail("banu@gmail.com")} 
+                      type="button">Change </button>
+              
+              </div>
+          }
+      }
+      </PersonContext.Consumer>
+  }      
+}
+    
+    ReactDOM.render(<App/>, document.getElementById("root"));
+  =================
+
+  PhoneApp application:
+  phoneapp> npm i bootstrap react-router-dom styled-components
+
+  1) uses ReactContext to avoid "props" passing thro intermediary components
+
+  2) uses Router
+  		npm i react-router-dom
+
+  		SPA ==> Single Page Application will have one html page
+  				We need to display different views for diffent URL
+
+  				http:server/products
+  				http:server/products/mobile
+  				http:server/products/mobile/iphone
+  				http:server/products/mobile/pixel
+
+  				http:server/products/orders
+  				http:server/products/order/customer/3
+  				http:server/products/customer/3/orders
+
+  				Need?
+  					1) SEO
+  					2) Bookmark URI
+  					3) History API
+  					4) Lazy load a component
+  					5) Providing Guards to each Route
+
+  	3) styled-components
+
+  	4) Bootstrap ==> Responsive Web Design CSS Framework ==> Adopt to different devices and Resolutions
+  		 @media queries ==> uses 12 column system
+  		 or Bulma	
+
+  	5) font-awesome ==> for icons
+  	6) google-fonts
+
+
+  	Components:
+  	1) Navbar.js
+  	2) ProductList.js
+  	3) Product.js
+  	4) Cart.js
+  	5) CartList.js
+
+
+  	
+  	6) Details.js
+  	/details/:id ==> id is path params
+
+  	http://server/details/4
+  	http://server/details/21
+
+
+  	http://server/products?type=mobile ==> Query Params
+
+  	7) Default.js
+
+
+  	return <div>
+
+
+  	</div>
+
+
+  	return <React.Fragment>
+
+
+
+  	</React.Fragment>
+
+
+  	return <>
+
+    			</>
+
+    ==========
+
+    copy "Button.js" into "components" folder
+
+    overwrite "Nvabar.js" with the one present in "share" folder
+
+		overwrite "App.css"
+
+		Router Link:
+
+		 <Link to="/" className="nav-link">   
+                    Products
+     </Link>     
+      <Route exact path="/" component={ProductList} />
+
+
+     HyperLink:
+
+      <a href="/" className="nav-link">   
+                    Products
+      </a> 
+
+      place href in Addressbar
+
+      ===
+
+      copy "data.js" into "src" folder
+      copy "img" folder into "public"
+
+      

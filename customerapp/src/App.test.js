@@ -25,10 +25,10 @@ import App from './App';
     expect(btns.length).toBe(5);
   });
  
-  it("filter customers", () => {
-    render(<App />);
-    let txtBox = screen.getByPlaceholderText("search by name");
-    fireEvent.change(txtBox, {"target": {"value": "Geller"}});
-    let btns = screen.queryAllByRole('button');
-    expect(btns.length).toBe(2);
-  });
+  // it("filter customers", () => {
+  //   render(<App />);
+  //   let txtBox = screen.getByPlaceholderText("search by name");
+  //   fireEvent.change(txtBox, {"target": {"value": "Geller"}});
+  //   let btns = screen.queryAllByRole('button');
+  //   expect(btns.length).toBe(2);
+  // });
