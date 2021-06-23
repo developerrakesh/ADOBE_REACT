@@ -7,7 +7,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
                 <Link to="/">
-                    <i className="navbar-brand">
+                    <i className="navbar-brand" >
                         Adobe
                     </i>
                 </Link>
@@ -18,7 +18,7 @@ class Navbar extends Component {
                 </Link>   
                 </li>
             </ul>
-            <Link to="/cart" className="ml-auto">   
+            <Link to="/cart" className="ms-auto">   
                 <Button>
                     <span className="mr-2">
                     <i className="fas fa-cart-plus mr-2" />

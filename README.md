@@ -484,7 +484,7 @@ class Second extends React.Component {
 
     copy "Button.js" into "components" folder
 
-    overwrite "Nvabar.js" with the one present in "share" folder
+    overwrite "Navbar.js" with the one present in "share" folder
 
 		overwrite "App.css"
 
@@ -509,4 +509,141 @@ class Second extends React.Component {
       copy "data.js" into "src" folder
       copy "img" folder into "public"
 
+=======================================================
+
+Router; styled-components
+phoneapp
       
+
+      App.js ==> Router configuration is Done
+      Navbar.js
+      Button.js ==> Styled-Component
+
+      overwrite App.css
+      copy data.js ==> src folder
+
+      copy "img" folder into "public" 
+
+
+Component Life Cycle methods of React
+
+Mounting Phase: ==> constructor() ==> render() ==> componentDidMount() ==> update the state ==> render()
+
+In constructor have some static data
+render() your screen with that static info
+componentDidMount() ==> Make API calls ==> update the state and re-render the screen
+
+Why API calls in componentDidMount() and not in constructor()?
+  ==> FCP
+  First Contentful Paint (FCP) is when the browser renders the first bit of content from the DOM, providing the first feedback to the user that the page is actually loading.
+
+
+  =======
+
+  Fake REST aPI:
+
+  npx json-server --watch data.json --port 1234
+
+
+Client Code:
+
+fetch("http://localhost:1234/products/2")
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+axios
+npm install axios
+
+===================
+PhoneApp:
+
+1) react-router-dom
+2) styled-components
+3) ReactContext ==> Provider and Consumer
+4) Making API calls thro axios
+5) bootstrap, font-awesome and google-fonts
+
+=============================================
+
+class Child extends React.Component {
+  render() {
+    console.log("child renders!!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name : "Banu"
+  }
+  
+  increment() { 
+    this.setState( {
+      count : this.state.count + 1
+    })
+  }
+  
+  render() {
+    console.log("Parent Re-renders!!!");
+    return <>
+          Name : {this.state.name} <br />
+          Count : {this.state.count} <br />
+          <Child name={this.state.name} />
+          <button onClick ={() => this.increment()}>Inc</button>
+        </>
+  }
+}
+
+ReactDOM.render(<Parent />, document.getElementById("root"))
+
+============
+
+class Child extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.props) !== JSON.stringify(nextProps);
+  }
+  render() {
+    console.log("child renders!!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name : "Banu"
+  }
+  
+  increment() { 
+    this.setState( {
+      count : this.state.count + 1
+    })
+  }
+  
+  render() {
+    console.log("Parent Re-renders!!!");
+    return <>
+          Name : {this.state.name} <br />
+          Count : {this.state.count} <br />
+          <Child name={this.state.name} />
+          <button onClick ={() => this.increment()}>Inc</button>
+        </>
+  }
+}
+
+ReactDOM.render(<Parent />, document.getElementById("root"))
+
+====================
+
+  class Child extends React.PureComponent {
+   
+  render() {
+    console.log("child renders!!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+===========================================================
+
+React Hooks

@@ -19,7 +19,7 @@ export const storeProducts = [
       company: "SAMSUNG",
       info:
         "It's not just a new phone. It brings a new way of thinking about what a phone can do. You defined the possibilities and we redefined the phone. The Galaxy S7 and S7 edge. Rethink what a phone can do.",
-      inCart: false,
+      inCart: true,
       count: 0,
       total: 0
     },
