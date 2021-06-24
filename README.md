@@ -918,5 +918,182 @@ class App extends Component {
 
     }
 
+========================
 
+  
+  React Context and Functional components:
+
+  const NumberContext  = React.createContext();
+
+  function App() {
+    return (
+        <NumberContext.Provider value={24}>
+            <div>
+                <Display/>
+            </div>
+        </NumberContext.Provider>
+    )
+  }
+
+  function Display() {
+    return (
+          <NumberContext.Consumer>
+              {
+                value => <div> {value} </div>
+              }
+          </NumberContext.Consumer>
+      )
+  }
+
+3) useContext()
+    helps using Context without Consumer Code
+
+  function Display() {
+    const data = React.useContext(NumberContext);
+    return <div> {data} </div>
+  }
+
+  ==> Task ==> Product.js convert into functional Component with Reat.useContext(ProductContext);
+
+  Using Multiple Providers:
+
+  function HeaderComponent() {
+    const user = React.useContext(UserContext);
+    const notifications = React.useContext(NotificationContext);
+    return <header>
+          Welcome, {user.name} You have {notifications.length} <br />
+    </header>    
+  }
+
+    old way without useContext
+     return (
+          <UserContext.Consumer>
+              {
+                value => <div> {value.name} </div>
+              }
+              <NotificationContext.Consumer>
+                  {
+                    value => You have {value.length} <br />
+                  }
+              </NotificationContext.Consumer>              
+          </UserContext.Consumer>
+      )
+  ===========
+
+  4) useEffect
+      ==> to acheive tasks what we do in  class Component life-cycle methods
+
+      function App() {
+        let [count, setCount] = React.useState(0);
+        let [user, setUser] = React.useState("Peter");
+
+        // componentDidUpdate
+        React.useEffect(() => {
+            console.log("called effect 1", count);
+        });
+
+
+         // componentDidMount
+        React.useEffect(() => {
+            console.log("called effect 2", count);
+        }, []);
+
+         // only when user state changes 
+        React.useEffect(() => {
+            console.log("called effect 3", count);
+        }, [user]);
+
+         return (
+          <>
+            Count:{count} User : {user} <br />
+            <button onClick={() => setCount(count + 1)}>Inc</button>
+          </>
+          )
+      }
+
+  5) Memoization is a pattern
+    React.memo() is for Memoization pattern
+
+    Without memoize:
+
+function Child(props) {
+    console.log("child renders!!!");
+    return <h1> Child : {props.name} </h1>
+  }
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name : "Banu"
+  }
+  
+  increment() { 
+    this.setState( {
+      count : this.state.count + 1
+    })
+  }
+  
+  render() {
+    console.log("Parent Re-renders!!!");
+    return <>
+          Name : {this.state.name} <br />
+          Count : {this.state.count} <br />
+          <Child name={this.state.name} />
+          <button onClick ={() => this.increment()}>Inc</button>
+        </>
+  }
+}
+
+ReactDOM.render(<Parent />, document.getElementById("app"))
+
+====
+
+
+function Child(props) {
+    console.log("child renders!!!");
+    return <h1> Child : {props.name} </h1>
+  }
+
+let MemoChild = React.memo(Child); // PureComponent equals
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name : "Banu"
+  }
+  
+  increment() { 
+    this.setState( {
+      count : this.state.count + 1
+    })
+  }
+  
+  render() {
+    console.log("Parent Re-renders!!!");
+    return <>
+          Name : {this.state.name} <br />
+          Count : {this.state.count} <br />
+          <MemoChild name={this.state.name} />
+          <button onClick ={() => this.increment()}>Inc</button>
+        </>
+  }
+}
+
+ReactDOM.render(<Parent />, document.getElementById("app"))
+
+==============
+
+function applyEquals(props, nextProps) {
+  // logic
+}
+
+let MemoChild = React.memo(Child, applyEquals); // shouldComponentUpdate
+
+================
+
+https://raw.githubusercontent.com/BanuPrakash/ADOBE_REACT/main/memo_callback.js
+
+Modify the code for optimization:
+
+====================================
 
