@@ -647,3 +647,276 @@ ReactDOM.render(<Parent />, document.getElementById("root"))
 ===========================================================
 
 React Hooks
+
+=============
+
+Day 3 Recap: 
+=> React-Context
+=> styled-components
+=> React-router-dom ( Router, Route, Switch, Link, params )
+
+Whenever state or props changes the component renders ; which in turn triggers child components to re-render
+==> override shouldComponentUpdate(nextProps, nextState) ==> true / false ==> complex props
+==> extends PureComponent [ primitive type ==> good ]
+    
+===================
+
+ fake RESTAPI ==> json-server
+npm i concurrently 
+
+ scripts : {
+    "run-dev" :  ""concurrently \" "npx json-server --watch data.json --port 1234\" \"react-scripts start\""
+  }
+
+============================================
+
+Day 4:
+
+=====
+
+HOC ==> High Order Component
+
+HOF ==> High Order Functions are functions which can take function as argument/ return a function
+==> Example: map, filter, forEach
+    map accepts transform function
+    filter accept predicate function
+
+
+HOC can take Component as argument / return a component
+
+Why HOC?
+  ==> to introduce new props and behaviour
+  ==> conditionally return components
+
+
+class DivComponent extends React.Component {
+  render() {
+    return <>
+      count {this.props.count} <br />
+      <button type="button" onClick={() => this.props.increment()} > Click </button>
+      </>
+  }
+}
+
+       
+const withCounter = (WrappedComponent) => {
+          return class extends React.Component {
+              constructor(props) {
+                super(props);
+                this.state = {
+                  count : 0
+                }
+              }
+
+              increment = () => {
+                this.setState({ count : this.state.count + 1})
+              }
+
+              render() {
+                return <WrappedComponent count = {this.state.count} increment={this.increment} />
+              }
+          }
+ }
+
+ const DivWithCounter = withCounter(DivComponent);
+
+ function App() {
+  return <DivWithCounter />
+ }
+
+ReactDOM.render(<App/>, document.getElementById("app"));
+
+=======================================
+
+
+ErrorBoundary Components
+
+Each and every component can have exception handling
+JSX
+
+{
+  try {
+
+  } catch(err) {
+    ...
+  }
+
+}
+
+
+ErrorBoundary Components ==> component which overrides
+==> error ==> stack trace
+==> errorInfo ==> message
+
+componentDidCatch(error, errorInfo) {
+
+}
+
+static getDerivedStateFromError() {
+  return {hasError: true}
+}
+
+====
+
+class  ErrorBoundary extends React.Component {
+ 
+  constructor(props) {
+    super(props);
+     this.state = {
+       hasError: false,
+       error: null,
+       errorInfo : ""
+     }
+  }
+
+  componentDidCatch(error, errorInfo) {
+      this.setState({
+          error,
+          errorInfo,
+          hasError: true
+    })
+  }
+
+  render() {
+      if(this.state.hasError) {
+        <>
+            <div> Boom :-( {this.state.errorInfo} </div>
+        </>
+        } else {
+           return this.props.children
+        }
+      }
+  }
+}
+
+
+function App() {
+    return <ErrorBoundary>
+              <A/>
+              <B/>
+              <C/>
+                <ErrorBoundary>
+                    <D/>
+                    <E/>
+                </ErrorBoundary>
+      </ErrorBoundary>
+}
+
+=================================================================================
+
+class Components ==> Life cycle methods; state; behaviour
+
+React Hooks: ==> 16.8+
+
+-----------------
+
+Goal ==> Avoid class components and prefer functional components
+
+function App() {
+}
+
+class App extends Component {
+  state = {
+    count: 0,
+    user: "Larry"
+  }
+
+  setCount(cnt) {
+    this.setState({
+      count: cnt
+    })
+  }
+
+  setUser(usr) {
+    this.setState( {
+      user: usr
+    })
+  }
+}
+
+1) useState
+    to introduce state in functional component
+
+    function App() {
+      let [count, setCount] = React.useState(0);
+      let [user, setUser] = React.useState("Peter");
+      return (
+          <>
+            Count:{count} User : {user} <br />
+            <button onClick={() => setCount(count + 1)}>Inc</button>
+          </>
+      )
+    }
+
+    ReactDOM.render(<App/>, document.getElementById("app"));
+
+2) useReducer
+    ==> if state is complex object or need to implement conditional mutations [ ADD_TO_CART, REMOVE_FROM_CART, CLEAR_LIST]
+
+    Reducers are functions which take state and action 
+      ==> based on action disptached from event/UI [ view dispatch action]
+      ==> copy of state ==> mutate
+    ==> return new state
+
+    Action is of type 
+    ADD_TO_CART:
+    {
+      type: "ADD_TO_CART",
+      payload: {"id": 1,"name": "iPhone", "price" : 89000.00}
+    }
+
+    REMOVE_FROM_CART:
+    {
+      type: "REMOVE_FROM_CART",
+      payload: 3
+    }
+
+    cartlist is state = []
+
+    ===
+
+    let initialState = {count:0};
+
+    let countReducer = (state, action) => {
+      switch(action.type) {
+        case "INCREMENT" : return {count : state.count + action.payload};
+        case "DECREMENT" :  return {count : state.count - 1};
+        default: return state;
+      }
+    }
+
+
+     function App() {
+      let [state, dispatch] = React.useReducer(countReducer, initialState);
+      function increment() {
+        let action = {"type": "INCREMENT", payload: 10};
+        dispatch(action);
+      }
+      return (
+          <>
+            Count:{state.count} 
+            <button onClick={increment}>Inc</button>
+          </>
+      )
+    }
+
+    ReactDOM.render(<App/>, document.getElementById("app"));
+
+    ====
+
+
+    let initState = {cart : [], total : 0};
+
+    let cartReducer = (state, action) => {
+        switch(action.type) {
+            case "ADD_TO_CART":
+              return { ...state, action.payload}
+            case "REMOVE_ALL": 
+              return {cart : [], total : 0}
+            default: return state;
+        }
+
+    }
+
+
+
