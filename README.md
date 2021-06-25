@@ -1097,3 +1097,319 @@ Modify the code for optimization:
 
 ====================================
 
+Recap:
+  PureComponent, shouldComponentUpdate
+  ErrorBoundary ==> componentDidCatch(error, errorInfo) {}
+  High Order Components 
+    ==> introduces new props [ variables and behaviour]; conditionally return components
+
+  React Hooks: 
+    useState(), 
+    useReducer() [ reducers take state and action; mutate on the copy of state
+    and return; dispatch() to call reducer function]
+
+    React.memo() ==> HOC to memoize the props and state and to avoid re-render of memoized component;
+    render only if props passed to child component & state change
+
+    useContext() ==> instead of writing Context.Consumer
+
+    ===============
+
+    memo_callback.js ==> task
+
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+
+function Count({ text, count }) {
+  console.log(`Rendering ${text}`)
+  return <div>{text} - {count}</div>
+}
+
+
+function ParentComponent() {
+  const [age, setAge] = React.useState(25)
+  const [salary, setSalary] = React.useState(50000)
+
+   const incrementAge = () => {
+    setAge(age + 1)
+  };
+
+  const incrementSalary = () => {
+      setSalary(salary + 1000)
+  }
+  
+  return (
+    <div>
+      <Title />
+      <Count text="Age" count={age} />
+      <Button handleClick={incrementAge}>Increment Age</Button>
+      <Count text="Salary" count={salary} />
+      <Button handleClick={incrementSalary}>Increment Salary</Button>
+    </div>
+  )
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("app"));
+
+===============
+
+Memoizing Components:
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+const MemoTitle = React.memo(Title);
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+const MemoButton = React.memo(Button);
+
+function Count({ text, count }) {
+  console.log(`Rendering ${text}`)
+  return <div>{text} - {count}</div>
+}
+
+const MemoCount = React.memo(Count);
+
+function ParentComponent() {
+  const [age, setAge] = React.useState(25)
+  const [salary, setSalary] = React.useState(50000)
+
+   const incrementAge = () => {
+    setAge(age + 1)
+  };
+
+  const incrementSalary = () => {
+      setSalary(salary + 1000)
+  }
+  
+  return (
+    <div>
+      <MemoTitle />
+      <MemoCount text="Age" count={age} />
+      <MemoButton handleClick={incrementAge}>Increment Age</MemoButton>
+      <MemoCount text="Salary" count={salary} />
+      <MemoButton handleClick={incrementSalary}>Increment Salary</MemoButton>
+    </div>
+  )
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("app"));
+
+===
+
+React Hooks:
+5) useCallBack() ==> is used to memoize a function
+  
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+const MemoTitle = React.memo(Title);
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+const MemoButton = React.memo(Button);
+
+function Count({ text, count }) {
+        console.log(`Rendering ${text}`)
+        return <div>{text} - {count}</div>
+}
+
+const MemoCount = React.memo(Count);
+
+function ParentComponent() {
+        const [age, setAge] = React.useState(25)
+        const [salary, setSalary] = React.useState(50000)
+
+         const incrementAge = React.useCallback(() => {
+                setAge(age + 1)
+        },[age]);
+
+        const incrementSalary = React.useCallback(() => {
+                   setSalary(salary + 1000)
+        },[salary]);
+  
+        return (
+                <div>
+                        <MemoTitle />
+                        <MemoCount text="Age" count={age} />
+                        <MemoButton handleClick={incrementAge}>Increment Age</MemoButton>
+                        <MemoCount text="Salary" count={salary} />
+                        <MemoButton handleClick={incrementSalary}>Increment Salary</MemoButton>
+                </div>
+        )
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("app"));
+  
+6) "x" is fetched from API call;
+let data = React.useMemo(x); // memoize a variable
+React.memo(component); // memoize a component
+
+=================================
+
+7) React Reference
+
+class App extends React.Component {
+  emailRef = React.createRef(); // reference [ pointer]
+
+  render() {
+    return <>
+          <input type="text" ref={this.emailRef} /> 
+          <button onClick={() => this.doTask()}>Click</button>
+    </>
+  }
+
+  doTask() {
+      console.log(this.emailRef.current.value);
+      this.emailRef.current.focus();
+  }
+}
+
+3rd party components ==> KendoUi, PrimeReact, Adobe Spectrum
+
+When 3rd party components are used in project => we create "ref" and pass it to 3rd party components
+and invoke methods of 3rd party components
+
+
+   <DataTable ref={(el) => this.dt = el} value={this.state.customers} paginator rows={10}
+                        header={header} className="p-datatable-customers"
+                        globalFilter={this.state.globalFilter} emptyMessage="No customers found.">
+                        <Column field="name" header="Name" body={this.nameBodyTemplate} filter filterPlaceholder="Search by name" />
+                        <Column field="country" filterField="country.name" header="Country" body={this.countryBodyTemplate} filter filterPlaceholder="Search by country" filterMatchMode="contains" />
+                        <Column field="representative.name" header="Representative" body={this.representativeBodyTemplate} filter filterElement={representativeFilter} />
+                        <Column field="date" header="Date" body={this.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={this.filterDate} />
+                        <Column field="status" header="Status" body={this.statusBodyTemplate} filter filterElement={statusFilter}/>
+                        <Column field="activity" header="Activity" body={this.activityBodyTemplate} filter filterPlaceholder="Minimum" filterMatchMode="gte" />
+                    </DataTable>
+
+    Within React Component:
+
+    onDateChange(e) {
+        this.dt.filter(e.value, 'date', 'custom');
+        this.setState({ selectedDate: e.value });
+    }
+
+     onStatusChange(e) {
+        this.dt.filter(e.value, 'status', 'equals');
+        this.setState({ selectedStatus: e.value })
+    }
+========
+
+
+class App extends React.Component {
+ 
+  render() {
+    return <>
+          <input type="text" ref={input => this.emailRef = input} /> 
+          <button onClick={() => this.doTask()}>Click</button>
+    </>
+  }
+
+  doTask() {
+      console.log(this.emailRef.current.value);
+      this.emailRef.current.focus();
+  }
+}
+
+===
+
+8) Forward Reference:
+
+const EmailInput = React.forwardRef( (props, ref) => {
+  return <input type="text" ref ={ref} {...props} />
+})
+
+
+
+class App extends React.Component {
+  emailRef = React.createRef(); // reference [ pointer]
+
+  render() {
+    return <>
+          <EmailInput ref={this.emailRef}  style={{"width":"50px"}} disabled/> 
+          <button onClick={() => this.doTask()}>Click</button>
+    </>
+  }
+
+  doTask() {
+      console.log(this.emailRef.current.value);
+      this.emailRef.current.focus();
+  }
+}
+
+===========================
+
+Building Your Own Hooks
+
+------------------------
+useState() hook which gets and sets data from localStorage /sessionStorage
+
+
+function useLocalState(key, defValue) {
+  const [state,setState] = React.useState(() => {
+    let value;
+    try {
+      value = JSON.parse(window.localStorage.getItem(key)) || String(defValue))
+    } catch(error) {
+      value = String(defValue);
+    }
+  });
+
+  React.useEffect(() => {
+      window.localStorage.setItem(key, state);
+  }, [state]);
+
+  return [state, setState];
+}
+
+function App() {
+  const [state, setState] = useLocalState("app-state",0);
+  return <>
+      <button onClick={() => setState(state + 1)}>Click {state} </button>
+  </>
+}
+
+==============================
+
