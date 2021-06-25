@@ -1411,5 +1411,48 @@ function App() {
   </>
 }
 
-==============================
+==========================================
+
+https://github.com/BanuPrakash/ADOBE_REACT/blob/main/shoppinglist-base.zip
+
+shoppinglist-base.zip file extract
+
+folder> npm i
+
+folder> npm start
+
+Check the application code and working
+
+=====================================
+ 
+ State Management in React applications:
+
+ =======================================
+
+ view ==> clicks on button ==> callback() ==> passes data to action creator
+action creators function:==>
+
+ {
+  type:"ADD_TO_CART",
+  payload: data
+ }
+
+
+Using flux:
+npm i flux object-assign
+
+=================
+
+Monday ==> State management with Redux; Redux-thunk; Redux-Saga
+
+=========
+
+
+
+
+
+
+
+
+
 
