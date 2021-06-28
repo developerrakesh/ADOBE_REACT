@@ -1445,14 +1445,57 @@ npm i flux object-assign
 
 Monday ==> State management with Redux; Redux-thunk; Redux-Saga
 
-=========
+=================
+
+Day 6
+
+State management with Redux; Redux-thunk; Redux-Saga
+
+extract shoppinglist-base.zip into "redux" folder
+
+folder> npm i
+folder> npm i redux react-redux
+
+
+Recap:
+  Flux architecture supports uni-directional data flow
+  View --> sends payload to ActionCreators ==> format the message in the form of 
+    {
+        "type":"",
+        "payload": 
+    }
+
+  ActionCreators Dipatch the message to Disptacher
+  Dispatcher is a list of action handlers which internally passes to Store
+  Store-> is an EventEmitter; mutates the state and trigers a event
+  Views ==> who have registered will get notification; view gets the state from store
+
+=======
+
+Redux
+extract shoppinglist-base.zip into "redux" folder
+folder> npm i
+folder> npm i redux react-redux
+
+folder> npm i redux-logger
+
+==================
+
+chrome:extenstions ==> Redux DevTools
+
+=======================
+
+folder> npm i redux-logger
 
 
 
 
 
+npx create-react-app redux-thunk-saga
 
+=============
 
-
+using React-Redux Hooks
+using Middleware [  thunk / saga]
 
 
