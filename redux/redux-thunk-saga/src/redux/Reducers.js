@@ -3,7 +3,7 @@ import {FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE} from './A
 const initialState = {
     loading : false,
     users : [],
-    error: ''
+    error: null
 }
 
 export const userReducer = (state = initialState, action) => {

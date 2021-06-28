@@ -1,3 +1,4 @@
+import React, {useEffect} from 'react';
 import {fetchUsers} from './redux/thunk/thunkapi';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -6,7 +7,7 @@ export default function Users() {
     const dispatch = useDispatch();
 
     let {loading, error, users} = state;
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(fetchUsers());
     },[]);
 

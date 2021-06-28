@@ -10,7 +10,7 @@ export const fetchUsers = () => {
             dispatch(fetchUsersSuccess(response.data))
         })
         .catch(error => {
-            dispatch(fetchUsersFailure(error.message))
+            dispatch(fetchUsersFailure(error))
         })
     }
 }
