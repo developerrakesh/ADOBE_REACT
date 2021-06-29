@@ -1,11 +1,22 @@
 import {createStore, compose, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
+
+
 import {userReducer} from './redux/Reducers';
 
 import { Provider } from 'react-redux';
 import Users from './Users';
 
-const store = createStore(userReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__()))
+// saga config
+import createSagaMiddleWare from 'redux-saga';
+import rootSaga from './redux/saga';
+const sagaMiddleWare = createSagaMiddleWare();
+
+
+// const store = createStore(userReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__()))
+const store = createStore(userReducer, compose(applyMiddleware(sagaMiddleWare), window.__REDUX_DEVTOOLS_EXTENSION__()))
+
+sagaMiddleWare.run(rootSaga);
 
 function App() {
   return (

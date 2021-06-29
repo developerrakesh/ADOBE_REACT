@@ -1499,3 +1499,29 @@ using React-Redux Hooks
 using Middleware [  thunk / saga]
 
 
+function createThunkMiddleware(extraArgument) {
+  return ({ dispatch, getState }) => (next) => (action) => {
+    if (typeof action === 'function') {
+      return action(dispatch, getState, extraArgument);
+    }
+
+    return next(action);
+  };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+
+==========
+
+Redux ==> action is synchronous
+
+In Redux if action has to asynchronous [side effects] ==> thunk or saga
+
+================
+
+Thunk Example with ReactRedux Hooks
+
+
