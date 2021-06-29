@@ -1523,5 +1523,215 @@ In Redux if action has to asynchronous [side effects] ==> thunk or saga
 ================
 
 Thunk Example with ReactRedux Hooks
+https://spectrum.adobe.com/page/principles/
+
+
+==================
+
+Day 7:
+
+React Redux hooks ==> useSelector, useDispatch 
+[way to use connect(mapStateToProps, mapDispatchToProps)]
+
+Middleware ==> thunk, saga , redux-observables
+
+----------------
+
+Redux-Saga
+ also a middleware 
+ based on ES 6 generators; unlike functions has multiple return values. 
+
+ functions returns value [ value can be undefined, primitive, object, array]
+
+
+ function* generator() {
+      console.log("task1");
+      console.log("task2");
+   yield "first value";
+       console.log("task3");
+       console.log("task4");
+       console.log("task5");
+       console.log("task6");
+   yield 100;
+     console.log("task7");
+   yield "Bye!!!";
+ }
+
+
+ let iter = generator();
+ iter.next();
+ iter.next();
+ iter.next();
+ ================
+
+ Redux-Saga ==> many sagas will be configured [ usersaga, cartsaga, paymentsaga]
+
+ 
+ takeEvery
+  yield takeEvery(FETCH_USERS_REQUEST, fetchUsers);
+  if user makes multiple requests; this executes all the requests lined-up
+
+takeLatest
+  yield takeLatest(FETCH_USERS_REQUEST, fetchUsers);
+   if user makes multiple requests; executes only the last
+
+https://github.com/BanuPrakash/ADOBE_REACT/tree/main/redux/redux-thunk-saga/src/redux/saga
+
+redux/saga folder ==> UserSaga.js and index.js
+
+App.js ==> configureSaga middleware
+Users.js ==> button to refresh ==> to illustrate takeEvery and takeLatest
+
+================================================================================
+
+GraphQL
+
+Server:
+
+download: https://github.com/BanuPrakash/ADOBE_REACT/blob/main/graphql-server.zip
+
+extract:
+folder> npm i
+
+NodeJS environment ==> based on express framework
+
+============================
+
+  SPA ==> we can't have state management; code has to stateless
+
+  Traditional web application ==> cookies
+
+RESTful Web services or GraphQL should be stateless
+
+app.get("/", (req, res) => {
+  res.write("Good Day!!");
+  res.end();
+})
+
+====
+
+Tea Break
+
+
+
+extract https://github.com/BanuPrakash/ADOBE_REACT/blob/main/graphql-client.zip
+
+folder> npm i
+
+=============
+
+GraphQL server:
+
+npm i apollo-server-express graphql
+
+
+Spring boot:
+
+@RequestMapping("/products")
+
+@GetMapping()
+public List<Product> getProducts() { // ==> Product has ManyToOne association with Supplier
+
+}
+
+RESTful:
+http://localhost:8080/api/products
+  ==> all attributes of product and Supplier
+  
+to Solve over fetching
+
+Product ==> Supplier ==> Lazy Loading
+only product is fetched but no Supplier
+==> Product and supplier name [ n + 1 ]
+
+  Product
+    id
+    name
+    price
+    qunatity
+    description
+
+
+    name and price
+    name and quantiity
+    name, price and qty
+    name, description
+    name, description, qty
+
+  Order
+    Customer ==> Address
+    [Items] ==> Product ==> Supplier
+    Payment
+
+  Solution in Spring Data JPA ==> EntityGraph
+
+=================================================
+
+Apollo Server is an open-source, spec-compliant GraphQL server
+
+
+
+npm i apollo-server-express graphql
+
+
+schema.graphql
+type Query {
+    greeting: String
+}
+
+resolvers.js
+const Query = {
+    greeting: () => "Welcome to GraphQL!!"
+}
+
+
+// CommonJS module system
+module.exports = {Query};
+
+=================================
+
+schema.graphql
+
+type Query {
+    jobs: [Job]
+}
+
+type Job {
+    id: ID!
+    title: String
+    description: String
+}
+
+
+
+resolvers.js
+const db = require("./db");
+const Query = {
+    jobs: () => db.jobs.list()
+}
+// CommonJS module system
+module.exports = {Query};
+
+===
+{
+  jobs {
+    id
+    title
+    description
+  }
+}
+
+
+
+====
+
+Association: Job and Company [ Many-To-One]
+
+
+=======================
+
+GraphQL client with fetch and apollo-client
+
+===============================================
 
 
