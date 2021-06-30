@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export class NavBar extends Component {
   render() {
     const { loggedIn, onLogout } = this.props;
-    // if (loggedIn) {
+    if (loggedIn) {
       return (
         <nav className="navbar">
           <div className="navbar-start">
@@ -15,15 +15,15 @@ export class NavBar extends Component {
           </div>
         </nav>
       );
-    // } else {
-    //   return (
-    //     <nav className="navbar">
-    //       <div className="navbar-start">
-    //         <Link className="navbar-item" to="/">Home</Link>
-    //         <Link className="navbar-item" to="/login">Login</Link>
-    //       </div>
-    //     </nav>
-    //   );
-    // }
+    } else {
+      return (
+        <nav className="navbar">
+          <div className="navbar-start">
+            <Link className="navbar-item" to="/">Home</Link>
+            <Link className="navbar-item" to="/login">Login</Link>
+          </div>
+        </nav>
+      );
+    }
   }
 }
