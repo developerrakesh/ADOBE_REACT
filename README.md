@@ -1735,3 +1735,162 @@ GraphQL client with fetch and apollo-client
 ===============================================
 
 
+Day 8:
+
+------
+
+State management with Redux - Saga
+GraphQL ==> Server code
+
+GraphQL vs RESTful Web services
+
+RESTful Web Services:
+multiple endpoints
+  /products
+  /products/4
+  /products?page=1&size=10
+  /orders
+  /customers
+  /customers/me@gmail.com
+
+==> Overfetching and underfetching
+==> n + 1 requests
+
+
+GraphQL:
+only one endpoint
+/graphql with POST request
+
+{
+  jobs {
+    title
+    company {
+      name
+    }
+  }
+}
+
+Schema ==> type
+
+Resolvers ==>
+
+
+notarealdb ==> fake store [ RDBMS ==> sequelize or TypeORM or PRISMA ==> ORM; Mongodb ==> Mangoose]
+
+
+GraphQL ==> Playground http://localhost:9000/graphql as client
+
+GraphQL ==> in React application [ client ]
+
+==================================================
+
+Start the server: graphql-server>npm start
+
+== 
+
+graphql-client> npm i
+graphql-client> npm start
+
+export async function loadJobs() {
+    const response = await fetch(endpoint , {
+
+    });
+}
+
+
+export  function loadJobs() {
+    fetch(endpoint , {
+
+    }).then(response => {
+
+    }) ;
+}
+
+===========
+typeDefs:
+type Query {
+    company(id:ID!): Company
+    job(id:ID!): Job
+    jobs: [Job]
+}
+
+type Company {
+    id: ID!
+    name: String
+    description: String
+}
+
+type Job {
+    id: ID!
+    title: String
+    company: Company
+    description: String
+}
+
+===
+resolvers.js
+
+const db = require("./db");
+
+const Query = {
+    company:(root, args) => db.companies.get(args.id),
+    job:(root, args) => db.jobs.get(args.id),
+    jobs: () => db.jobs.list()
+}
+
+const Job = {
+    company: (job) => db.companies.get(job.companyId)
+}
+
+// CommonJS module system
+module.exports = {Query, Job};
+
+===
+
+const db = require("./db");
+
+const Query = {
+    company:(root, args) => db.companies.get(args.id),
+    job:(root, args) => db.jobs.get(args.id),
+    jobs: () => db.jobs.list()
+}
+
+const Job = {
+    company: (job) => db.companies.get(job.companyId)
+}
+
+// CommonJS module system
+module.exports = {Query, Job};
+
+====
+
+Using Query VARIABLES:
+
+query JobQuery($id:ID!) {
+  job(id:$id) {
+    title
+  }
+}
+
+
+Query Variables:
+{
+  "id": "j3"
+}
+
+================================
+
+
+{
+   company(id:"c2") {
+    name
+    description
+  }
+}
+
+
+{
+  job(id:"j1") {
+    title
+  }
+}

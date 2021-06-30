@@ -1,20 +1,26 @@
 [
-    {
-      "id": "j1",
-      "companyId": "c1",
-      "title": "Frontend Developer",
-      "description": "We are looking for a Frontend Developer familiar with React."
-    },
-    {
-      "id": "j2",
-      "companyId": "c1",
-      "title": "Backend Developer",
-      "description": "We are looking for a Backend Developer familiar with Node.js and Express."
-    },
-    {
-      "id": "j3",
-      "companyId": "c2",
-      "title": "Full-Stack Developer",
-      "description": "We are looking for a Full-Stack Developer familiar with Node.js, Express, and React."
-    }
-  ]
+  {
+    "id": "j1",
+    "companyId": "c1",
+    "title": "Frontend Developer",
+    "description": "We are looking for a Frontend Developer familiar with React."
+  },
+  {
+    "id": "j2",
+    "companyId": "c1",
+    "title": "Backend Developer",
+    "description": "We are looking for a Backend Developer familiar with Node.js and Express."
+  },
+  {
+    "id": "j3",
+    "companyId": "c2",
+    "title": "Full-Stack Developer",
+    "description": "We are looking for a Full-Stack Developer familiar with Node.js, Express, and React."
+  },
+  {
+    "id": "rJaN0uFnu",
+    "companyId": "c2",
+    "title": "State Management Expert",
+    "description": "Having knowledge of Redux, Mobx, 6+"
+  }
+]

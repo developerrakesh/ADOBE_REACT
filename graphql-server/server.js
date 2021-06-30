@@ -13,7 +13,6 @@ const resolvers = require('./resolvers');
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-
 const port = 9000;
 const jwtSecret = 'TopSecret123';
 
