@@ -11,8 +11,8 @@ const Job = {
 }
 
 const Mutation = {
-    createJob: (root, {companyId, title, description}) => {
-        return db.jobs.create({companyId, title, description});
+    createJob: (root, {input}) => {
+        return db.jobs.create(input);
     }
 }
 // CommonJS module system

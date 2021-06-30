@@ -40,3 +40,13 @@ export async function loadJob(id) {
 const {job} = await graphQLRequest(query, {id});
 return job;
 }
+
+export async function createJob(input) {
+    const query = `
+    mutation  CreateJobMutation($input:CreateJobInput){
+        createJob(input: $input) 
+      }`;
+
+    const data = await graphQLRequest(query, {input});
+    return data.createJob;
+}

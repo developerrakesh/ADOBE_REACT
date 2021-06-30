@@ -1894,3 +1894,20 @@ Query Variables:
     title
   }
 }
+
+===
+
+Check server code for Mutation:
+
+1) schema.grahql
+2) resolvers.js
+
+Playground:
+
+mutation {
+  createJob (
+    companyId: "c2",
+          title: "State Management Expert",
+    description: "Having knowledge of Redux, Mobx, 6+"
+  )
+}
