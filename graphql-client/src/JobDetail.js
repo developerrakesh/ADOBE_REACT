@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import { jobs } from './fake-data';
-import {loadJob} from './api'
+// import {loadJob} from './api'
+import {loadJob} from './api-apollo-client'
 
 export class JobDetail extends Component {
   constructor(props) {

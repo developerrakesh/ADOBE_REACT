@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {createJob} from './api';
+// import {createJob} from './api';
+import {createJob} from './api-apollo-client';
 
 export class JobForm extends Component {
   constructor(props) {
@@ -14,10 +15,10 @@ export class JobForm extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    const companyId = "c1"; // fix it
-    const {title, description} = this.state;
-    createJob({companyId, title, description}).then(id => {
-        this.props.history.push(`/jobs/${id}`)
+    // const companyId = 'c1'; // fix it
+    const {title,description} = this.state;
+    createJob({title, description}).then(job => {
+      this.props.history.push(`/jobs/${job.id}`)
     })
   }
 

@@ -1,28 +1,28 @@
 type Query {
-    company(id:ID!): Company
-    job(id:ID!): Job
-    jobs: [Job]
-}
-
-type Company {
-    id: ID!
-    name: String
-    description: String
-}
-
-type Job {
-    id: ID!
-    title: String
-    company: Company
-    description: String
-}
-
-input CreateJobInput {
-    companyId: ID,
-    title: String,
-    description: String
+  company(id: ID!): Company
+  job(id: ID!): Job
+  jobs: [Job]
 }
 
 type Mutation {
-    createJob(input:CreateJobInput) :ID
+  createJob(input: CreateJobInput): Job
+}
+
+type Company {
+  id: ID!
+  name: String
+  description: String
+  jobs: [Job]
+}
+
+type Job {
+  id: ID!
+  title: String
+  company: Company
+  description: String
+}
+
+input CreateJobInput {
+  title: String
+  description: String
 }

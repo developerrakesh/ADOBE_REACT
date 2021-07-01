@@ -1911,3 +1911,65 @@ mutation {
     description: "Having knowledge of Redux, Mobx, 6+"
   )
 }
+
+===
+
+mutation CreateJobMutation($companyId:ID, $title:String, $description: String){
+  createJob(companyId:$companyId, title: $title, description: $description ) 
+}
+
+Query VARIABLES:
+{
+  "companyId":"c1",
+  "title": "GrapQL expert",
+  "description" : "knowledge on Graphql"
+}
+
+=====
+
+
+
+input CreateJobInput {
+    companyId: ID,
+    title: String,
+    description: String
+}
+
+type Mutation {
+    createJob(input :CreateJobInput) :ID
+}
+
+==
+
+
+const Mutation = {
+    createJob: (root, {input}) => {
+        return db.jobs.create(input);
+    }
+}
+// CommonJS module system
+module.exports = { Query, Job, Mutation };
+
+===
+
+PlayGround:
+mutation CreateJobMutation($input:CreateJobInput){
+  createJob(input:$input ) 
+}
+
+Query Variables:
+{
+ "input": {
+  "companyId":"c1",
+  "title": "sdf GrapQL expert 23,
+  "description" : "knowledge on Graphql"
+}
+}
+
+============
+
+PWA, Performance, Suspense and Lazy loading
+
+=============================
+
+ 

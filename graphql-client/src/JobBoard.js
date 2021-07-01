@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { JobList } from './JobList';
 // const { jobs } = require('./fake-data');
 
-import {loadJobs} from './api';
+// import {loadJobs} from './api';
+import {loadJobs} from './api-apollo-client';
 
 export class JobBoard extends Component {
   constructor(props) {

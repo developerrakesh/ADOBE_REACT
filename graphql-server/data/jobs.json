@@ -30,51 +30,9 @@
     "description": "knowledge on Graphql"
   },
   {
-    "id": "SJTu_KF2u",
-    "companyId": "c1",
-    "title": "GrapQL expert 2",
-    "description": "knowledge on Graphql"
-  },
-  {
-    "id": "BkIvpFKhd"
-  },
-  {
-    "id": "B1JTk9Kh_"
-  },
-  {
-    "id": "ByQKxct2O",
-    "companyId": "c1",
-    "title": "dsf",
-    "description": "ds"
-  },
-  {
-    "id": "HJmneqYnO",
-    "companyId": "c1",
-    "title": "Pulp Fiction",
-    "description": "sd"
-  },
-  {
-    "id": "B1lkbqF3_",
-    "companyId": "c1",
-    "title": "Good Job",
-    "description": "sdf"
-  },
-  {
-    "id": "H1Rmq5Yhd",
-    "companyId": "c1",
-    "title": "ser asd ",
-    "description": "sdf "
-  },
-  {
-    "id": "SJr8cct3O",
-    "companyId": "c1",
-    "title": "gd",
-    "description": "sd"
-  },
-  {
-    "id": "r1qc5qKnO",
-    "companyId": "c1",
-    "title": "dsf",
-    "description": "e"
+    "id": "By1sklc2u",
+    "title": "Some Job",
+    "description": "But Good Job",
+    "companyId": "c1"
   }
 ]
